@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from marshmallow import ValidationError
 from queries.user_queries import UserQueries
 from schemas.requests.user_schema import UserSchema
 from utils.objects_model import DataResponse, MessagesUserService
@@ -32,6 +33,33 @@ class UserService:
 
         except Exception as ex:
             data_response.message = self.messages.USER_FETCH_ERROR
+            data_response.status = HTTPStatus.INTERNAL_SERVER_ERROR
+            data_response.errors = [{"error": str(ex.args)}]
+            return data_response
+
+    def create(self, data: dict):
+        data_response = DataResponse()
+        try:
+            user_data = self.user_schema.load(data)
+            if self.user_queries.email_exists(user_data.email):
+                data_response.status = HTTPStatus.BAD_REQUEST
+                data_response.message = self.messages.USER_CREATION_ERROR
+                data_response.errors = self.messages.USER_EMAIL_EXISTS
+                return data_response
+
+            new_user = self.user_queries.create_user(user_data)
+            data_response.data = self.user_schema.dump(new_user)
+            data_response.status = HTTPStatus.CREATED
+            data_response.message = self.messages.USER_CREATED_SUCCESS
+            return data_response
+
+        except Exception as ex:
+            data_response.message = self.messages.USER_CREATION_ERROR
+            if isinstance(ex, ValidationError):
+                data_response.status = HTTPStatus.BAD_REQUEST
+                data_response.errors = ex.args
+                return data_response
+
             data_response.status = HTTPStatus.INTERNAL_SERVER_ERROR
             data_response.errors = [{"error": str(ex.args)}]
             return data_response

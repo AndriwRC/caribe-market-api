@@ -10,3 +10,7 @@ class UserAPI(MethodView):
     def get(self, user_id=None):
         response_data = self.service.get(user_id=user_id)
         return http_response(response_data)
+
+    def post(self, user_id=None):
+        response_data = self.service.create(data=request.get_json())
+        return http_response(response_data)

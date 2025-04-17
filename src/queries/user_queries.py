@@ -24,3 +24,7 @@ class UserQueries:
         db.session.delete(user)
         db.session.commit()
         return user
+
+    def email_exists(self, email: str) -> bool:
+        exists = User.query.filter_by(email=email).first()
+        return bool(exists)

@@ -14,6 +14,7 @@ class MessagesUserService:
 
     USER_CREATED_SUCCESS = "User created successfully."
     USER_CREATION_ERROR = "An error occurred while creating the user."
+    USER_EMAIL_EXISTS = "The user email already exists."
 
     USER_UPDATED_SUCCESS = "User updated successfully."
     USER_UPDATE_ERROR = "An error occurred while updating the user."
