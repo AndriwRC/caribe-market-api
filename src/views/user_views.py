@@ -14,3 +14,7 @@ class UserAPI(MethodView):
     def post(self, user_id=None):
         response_data = self.service.create(data=request.get_json())
         return http_response(response_data)
+
+    def put(self, user_id: int):
+        response_data = self.service.update(user_id=user_id, data=request.get_json())
+        return http_response(response_data)

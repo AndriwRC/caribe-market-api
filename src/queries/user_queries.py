@@ -15,10 +15,9 @@ class UserQueries:
         db.session.commit()
         return new_user
 
-    def update_user(self, user_id: int, data: dict) -> User:
-        user = User.query.filter_by(id=user_id).update(data)
+    def update_user(self, user_id: int, data: dict) -> None:
+        User.query.filter_by(id=user_id).update(data)
         db.session.commit()
-        return user
 
     def delete_user(self, user: User) -> User:
         db.session.delete(user)
