@@ -18,3 +18,7 @@ class UserAPI(MethodView):
     def put(self, user_id: int):
         response_data = self.service.update(user_id=user_id, data=request.get_json())
         return http_response(response_data)
+
+    def delete(self, user_id: int):
+        response_data = self.service.delete(user_id=user_id)
+        return http_response(response_data)

@@ -91,3 +91,24 @@ class UserService:
             data_response.status = HTTPStatus.INTERNAL_SERVER_ERROR
             data_response.errors = ex.args
             return data_response
+
+    def delete(self, user_id: int):
+        data_response = DataResponse()
+        try:
+            user = self.user_queries.get_by_id(user_id=user_id)
+            if not user:
+                data_response.status = HTTPStatus.NOT_FOUND
+                data_response.message = self.messages.USER_NOT_FOUND
+                return data_response
+
+            deleted_user = self.user_queries.delete_user(user=user)
+            data_response.data = self.user_schema.dump(deleted_user)
+            data_response.status = HTTPStatus.OK
+            data_response.message = self.messages.USER_DELETED_SUCCESS
+            return data_response
+
+        except Exception as ex:
+            data_response.message = self.messages.USER_DELETE_ERROR
+            data_response.status = HTTPStatus.INTERNAL_SERVER_ERROR
+            data_response.errors = ex.args
+            return data_response
