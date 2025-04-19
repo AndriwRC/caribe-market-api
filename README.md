@@ -21,25 +21,6 @@ A modular Flask API designed to serve a marketplace system (Caribe Market) using
 
 ---
 
-## 🧱 Project Structure
-
-.
-├── app/
-│ ├── models/ # SQLAlchemy models
-│ ├── schemas/ # Marshmallow schemas
-│ ├── services/ # Business logic
-│ ├── queries/ # ORM interaction layer
-│ ├── views/ # Flask View classes (route handlers)
-│ ├── clients/ # Inter-service communication (e.g. user client)
-│ ├── utils/ # Helpers, standard messages, and HTTP formatting
-│ └── config/ # DB & app configuration
-├── migrations/ # Flask-Migrate directory
-├── docker-compose.yml # Docker environment
-├── Dockerfile # App container
-└── README.md
-
----
-
 ## 🐳 Getting Started with Docker
 
 1. **Clone the repository**
@@ -122,6 +103,6 @@ Use the `http_response()` helper in `utils/` to generate consistent responses.
 Each service communicates via HTTP using reusable `clients/`, for example:
 
 ```python
-# src/clients/user_service_client.py
+# src/clients/user_client.py
 UserServiceClient.get_user(user_id)
 ```
