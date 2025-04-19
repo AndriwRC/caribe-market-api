@@ -11,7 +11,7 @@ class StoreAPI(MethodView):
         response_data = self.service.get(store_id=store_id)
         return http_response(response_data)
 
-    def post(self, store_id=None):
+    def post(self):
         response_data = self.service.create(data=request.get_json())
         return http_response(response_data)
 
