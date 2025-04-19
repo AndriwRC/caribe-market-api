@@ -7,17 +7,28 @@ class DataResponse:
         self.status: int = 200
 
 
-class MessagesUserService:
-    USER_NOT_FOUND = "User not found."
-    USER_FETCH_SUCCESS = "User data retrieved successfully."
-    USER_FETCH_ERROR = "An error occurred while retrieving user data."
+class MessagesService:
+    def __init__(self, entity: str):
+        self.entity = entity.capitalize()
 
-    USER_CREATED_SUCCESS = "User created successfully."
-    USER_CREATION_ERROR = "An error occurred while creating the user."
-    USER_EMAIL_EXISTS = "The user email already exists."
+        self.NOT_FOUND = f"{self.entity} not found."
+        self.FETCH_SUCCESS = f"{self.entity} data retrieved successfully."
+        self.FETCH_ERROR = (
+            f"An error occurred while retrieving {self.entity.lower()} data."
+        )
 
-    USER_UPDATED_SUCCESS = "User updated successfully."
-    USER_UPDATE_ERROR = "An error occurred while updating the user."
+        self.CREATED_SUCCESS = f"{self.entity} created successfully."
+        self.CREATION_ERROR = (
+            f"An error occurred while creating the {self.entity.lower()}."
+        )
+        self.DUPLICATE = f"The {self.entity.lower()} already exists."
 
-    USER_DELETED_SUCCESS = "User deleted successfully."
-    USER_DELETE_ERROR = "An error occurred while deleting the user."
+        self.UPDATED_SUCCESS = f"{self.entity} updated successfully."
+        self.UPDATE_ERROR = (
+            f"An error occurred while updating the {self.entity.lower()}."
+        )
+
+        self.DELETED_SUCCESS = f"{self.entity} deleted successfully."
+        self.DELETE_ERROR = (
+            f"An error occurred while deleting the {self.entity.lower()}."
+        )
