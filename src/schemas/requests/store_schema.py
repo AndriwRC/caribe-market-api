@@ -10,3 +10,4 @@ class StoreSchema(SQLAlchemyAutoSchema):
         model = Store
         load_instance = True
         sqla_session = db.session
+        include_fk = True
